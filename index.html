@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projeto G2 - Acidentes de Trânsito</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --red: #b42318;
+        --ink: #1f2937;
+        --muted: #667085;
+        --line: #e4e7ec;
+        --bg: #f8fafc;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      header {
+        background: #fff;
+        border-bottom: 1px solid var(--line);
+        padding: 44px 7vw 32px;
+      }
+      main {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 32px 20px 56px;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(32px, 5vw, 56px);
+        line-height: 1.05;
+        color: #111827;
+      }
+      h2 {
+        margin-top: 34px;
+        font-size: 24px;
+      }
+      p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--muted);
+        max-width: 850px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+      }
+      .card strong {
+        display: block;
+        color: var(--red);
+        font-size: 28px;
+        margin-bottom: 6px;
+      }
+      a.button {
+        display: inline-block;
+        margin-top: 18px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        background: var(--red);
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      ul {
+        font-size: 17px;
+        line-height: 1.8;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Análise de Acidentes de Trânsito no Brasil</h1>
+      <p>
+        Projeto analítico com dados simulados de 2015 a 2024 para identificar
+        regiões críticas, evolução temporal, tipos de acidente, horários de
+        risco e relação com fatores climáticos.
+      </p>
+      <a class="button" href="https://share.streamlit.io/"
+        >Abrir dashboard no Streamlit</a
+      >
+    </header>
+    <main>
+      <section class="grid">
+        <div class="card">
+          <strong>2015-2024</strong><span>Período analisado</span>
+        </div>
+        <div class="card">
+          <strong>5</strong><span>Regiões brasileiras</span>
+        </div>
+        <div class="card">
+          <strong>37</strong><span>Cidades monitoradas</span>
+        </div>
+        <div class="card"><strong>6</strong><span>KPIs principais</span></div>
+      </section>
+      <h2>Entregáveis</h2>
+      <ul>
+        <li>Dashboard interativo em Streamlit</li>
+        <li>Notebook de análise exploratória</li>
+        <li>Base CSV tratada e organizada</li>
+        <li>README com instruções de execução e publicação</li>
+      </ul>
+      <h2>Resumo executivo</h2>
+      <p>
+        O projeto mostra como a análise de dados pode apoiar decisões de
+        segurança viária. Os resultados ajudam a priorizar estados, horários,
+        tipos de acidente e condições ambientais que exigem maior atenção.
+      </p>
+    </main>
+  </body>
+</html>
