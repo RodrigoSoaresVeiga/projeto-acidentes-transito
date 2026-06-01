@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="pt-BR">
   <head>
@@ -5,100 +6,227 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Projeto G2 - Acidentes de Trânsito</title>
 
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
       :root {
-        color-scheme: light;
-        --red: #b42318;
-        --ink: #1f2937;
-        --muted: #667085;
-        --line: #e4e7ec;
-        --bg: #f8fafc;
+        --primary: #c1121f;
+        --primary-dark: #780000;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --bg: #f4f7fb;
+        --white: #ffffff;
+        --line: #e5e7eb;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
       body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background: var(--bg);
-        color: var(--ink);
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to bottom, #f8fafc, #eef2f7);
+        color: var(--text);
       }
 
       header {
-        background: #fff;
-        border-bottom: 1px solid var(--line);
-        padding: 44px 7vw 32px;
+        padding: 80px 8%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary)
+        );
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 50%;
+        top: -120px;
+        right: -120px;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        bottom: -100px;
+        left: -100px;
+      }
+
+      header h1 {
+        font-size: clamp(36px, 6vw, 64px);
+        margin-bottom: 20px;
+        font-weight: 700;
+        position: relative;
+        z-index: 1;
+      }
+
+      header p {
+        max-width: 850px;
+        margin: 0 auto;
+        font-size: 18px;
+        line-height: 1.8;
+        opacity: 0.95;
+        position: relative;
+        z-index: 1;
+      }
+
+      .buttons {
+        margin-top: 35px;
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+      }
+
+      .button {
+        background: white;
+        color: var(--primary);
+        padding: 14px 24px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .button:hover {
+        transform: translateY(-4px);
+        background: #ffe5e5;
       }
 
       main {
-        max-width: 1040px;
-        margin: 0 auto;
-        padding: 32px 20px 56px;
-      }
-
-      h1 {
-        margin: 0 0 12px;
-        font-size: clamp(32px, 5vw, 56px);
-        line-height: 1.05;
-        color: #111827;
-      }
-
-      h2 {
-        margin-top: 34px;
-        font-size: 24px;
-      }
-
-      p {
-        font-size: 18px;
-        line-height: 1.6;
-        color: var(--muted);
-        max-width: 850px;
+        max-width: 1150px;
+        margin: auto;
+        padding: 60px 24px;
       }
 
       .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 16px;
-        margin-top: 24px;
+        gap: 24px;
+        margin-bottom: 60px;
       }
 
       .card {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 20px;
+        background: var(--white);
+        padding: 28px;
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        transition: 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
       }
 
       .card strong {
         display: block;
-        color: var(--red);
-        font-size: 28px;
-        margin-bottom: 6px;
+        font-size: 38px;
+        color: var(--primary);
+        margin-bottom: 8px;
       }
 
-      .buttons {
-        display: flex;
-        gap: 16px;
-        margin-top: 24px;
-        flex-wrap: wrap;
+      .card span {
+        color: var(--muted);
+        font-size: 16px;
       }
 
-      .button {
-        display: inline-block;
-        padding: 12px 18px;
-        border-radius: 6px;
-        background: var(--red);
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.2s;
+      section {
+        margin-bottom: 50px;
       }
 
-      .button:hover {
-        opacity: 0.9;
+      h2 {
+        font-size: 30px;
+        margin-bottom: 18px;
+        color: var(--primary-dark);
+        position: relative;
+      }
+
+      h2::after {
+        content: "";
+        width: 70px;
+        height: 4px;
+        background: var(--primary);
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        border-radius: 999px;
+      }
+
+      p,
+      li {
+        font-size: 17px;
+        line-height: 1.8;
+        color: var(--muted);
       }
 
       ul {
-        font-size: 17px;
-        line-height: 1.8;
+        margin-top: 20px;
+        padding-left: 24px;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      .summary {
+        background: white;
+        padding: 32px;
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      footer {
+        background: #111827;
+        color: #d1d5db;
+        text-align: center;
+        padding: 28px 20px;
+        margin-top: 60px;
+      }
+
+      footer strong {
+        color: white;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 60px 24px;
+        }
+
+        header p {
+          font-size: 16px;
+        }
+
+        .button {
+          width: 100%;
+          max-width: 320px;
+          text-align: center;
+        }
+
+        h2 {
+          font-size: 26px;
+        }
       }
     </style>
   </head>
@@ -108,9 +236,11 @@
       <h1>Análise de Acidentes de Trânsito no Brasil</h1>
 
       <p>
-        Projeto analítico com dados simulados de 2015 a 2024 para identificar
-        regiões críticas, evolução temporal, tipos de acidente, horários de
-        risco e relação com fatores climáticos.
+        Projeto analítico desenvolvido com dados simulados entre 2015 e 2024,
+        explorando padrões de acidentes de trânsito no Brasil. O estudo aborda
+        regiões críticas, evolução temporal, horários de risco, condições
+        climáticas e tipos de ocorrência para apoiar análises e tomadas de
+        decisão.
       </p>
 
       <div class="buttons">
@@ -119,7 +249,7 @@
           href="https://projeto-acidentes-transito-lxikcamfryu24rsv3yndcu.streamlit.app/"
           target="_blank"
         >
-          Dashboard
+          Acessar Dashboard
         </a>
 
         <a
@@ -127,7 +257,7 @@
           href="https://colab.research.google.com/drive/1blF-ZztMBgEEmcQ0ckcW6v_wMgkQW01i?usp=sharing"
           target="_blank"
         >
-          Notebook
+          Abrir Notebook
         </a>
       </div>
     </header>
@@ -135,7 +265,7 @@
     <main>
       <section class="grid">
         <div class="card">
-          <strong>2015-2024</strong>
+          <strong>2015–2024</strong>
           <span>Período analisado</span>
         </div>
 
@@ -155,22 +285,44 @@
         </div>
       </section>
 
-      <h2>Atividades realizadas</h2>
+      <section>
+        <h2>Atividades Desenvolvidas</h2>
 
-      <ul>
-        <li>Dashboard interativo em Streamlit</li>
-        <li>Notebook de análise exploratória</li>
-        <li>Base CSV tratada e organizada</li>
-        <li>README com instruções de execução e publicação</li>
-      </ul>
+        <ul>
+          <li>Dashboard interativo utilizando Streamlit</li>
+          <li>Análise exploratória de dados em Notebook</li>
+          <li>Tratamento e organização da base CSV</li>
+          <li>Criação de visualizações analíticas</li>
+          <li>README com instruções de execução e publicação</li>
+        </ul>
+      </section>
 
-      <h2>Resumo conclusivo</h2>
+      <section class="summary">
+        <h2>Resumo Conclusivo</h2>
+
+        <p>
+          O projeto demonstra como técnicas de análise e visualização de dados
+          podem auxiliar na compreensão de padrões relacionados à segurança
+          viária. Os resultados permitem identificar regiões mais críticas,
+          horários com maior incidência de acidentes e fatores ambientais que
+          influenciam diretamente os índices analisados.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Desenvolvido por <strong>Rodrigo Soares Veiga</strong>
+      </p>
 
       <p>
-        O projeto mostra como a análise de dados pode apoiar decisões de
-        segurança viária. Os resultados ajudam a priorizar estados, horários,
-        tipos de acidente e condições ambientais que exigem maior atenção.
+        Disciplina: <strong>Linguagens de Programação</strong>
       </p>
-    </main>
+
+      <p>
+        Tema: <strong>Análise de Acidentes de Trânsito no Brasil</strong>
+      </p>
+    </footer>
   </body>
 </html>
+```
