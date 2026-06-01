@@ -17,8 +17,10 @@ def carregar_dados():
     df = pd.read_csv(
         DATA_PATH,
         parse_dates=["data"],
-        encoding="latin-1"
+        encoding="utf-8"
     )
+
+    df.columns = df.columns.str.strip()
 
     df["taxa_gravidade"] = (
         (df["mortes"] * 5 + df["feridos"] * 1.5)
