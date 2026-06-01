@@ -3,25 +3,49 @@ import plotly.express as px
 import streamlit as st
 from pathlib import Path
 
-st.set_page_config(page_title="Acidentes de Trânsito no Brasil", page_icon="🚗", layout="wide")
+st.set_page_config(
+    page_title="Acidentes de Trânsito no Brasil",
+    page_icon="🚗",
+    layout="wide"
+)
 
 DATA_PATH = Path(__file__).parent / "dados" / "simulacao_acidentes_transito_brasil.csv"
 
+
 @st.cache_data
 def carregar_dados():
-    df = pd.read_csv(DATA_PATH, parse_dates=["data"])
-    df["taxa_gravidade"] = (df["mortes"] * 5 + df["feridos"] * 1.5) / df["acidentes"].clip(lower=1)
+    df = pd.read_csv(
+        DATA_PATH,
+        parse_dates=["data"],
+        encoding="utf-8"
+    )
+
+    df["taxa_gravidade"] = (
+        (df["mortes"] * 5 + df["feridos"] * 1.5)
+        / df["acidentes"].clip(lower=1)
+    )
+
     df["ano_mes"] = df["data"].dt.to_period("M").astype(str)
+
     return df
+
 
 def multiselect(label, options, default=None):
     options = sorted(options)
-    return st.sidebar.multiselect(label, options, default=default or options)
+    return st.sidebar.multiselect(
+        label,
+        options,
+        default=default or options
+    )
+
 
 df = carregar_dados()
 
 st.title("Análise de Acidentes de Trânsito no Brasil")
-st.caption("Dashboard analítico com dados simulados de acidentes de trânsito entre 2015 e 2024.")
+
+st.caption(
+    "Dashboard analítico com dados simulados de acidentes de trânsito entre 2015 e 2024."
+)
 
 st.sidebar.header("Filtros")
 
@@ -29,20 +53,48 @@ anos = st.sidebar.slider(
     "Ano",
     int(df["ano"].min()),
     int(df["ano"].max()),
-    (int(df["ano"].min()), int(df["ano"].max()))
+    (
+        int(df["ano"].min()),
+        int(df["ano"].max())
+    )
 )
 
 meses = multiselect("Mês", df["mes"].unique())
-regioes = multiselect("Região", df["regiao"].unique())
 
-ufs_disponiveis = df[df["regiao"].isin(regioes)]["uf"].unique()
-ufs = multiselect("Estado", ufs_disponiveis)
+regioes = multiselect(
+    "Região",
+    df["regiao"].unique()
+)
 
-cidades_disponiveis = df[df["uf"].isin(ufs)]["cidade"].unique()
-cidades = multiselect("Cidade", cidades_disponiveis)
+ufs_disponiveis = (
+    df[df["regiao"].isin(regioes)]["uf"]
+    .unique()
+)
 
-tipos = multiselect("Tipo de acidente", df["tipo_acidente"].unique())
-gravidades = multiselect("Nível de gravidade", df["nivel_gravidade"].unique())
+ufs = multiselect(
+    "Estado",
+    ufs_disponiveis
+)
+
+cidades_disponiveis = (
+    df[df["uf"].isin(ufs)]["cidade"]
+    .unique()
+)
+
+cidades = multiselect(
+    "Cidade",
+    cidades_disponiveis
+)
+
+tipos = multiselect(
+    "Tipo de acidente",
+    df["tipo_acidente"].unique()
+)
+
+gravidades = multiselect(
+    "Nível de gravidade",
+    df["nivel_gravidade"].unique()
+)
 
 f = df[
     df["ano"].between(anos[0], anos[1])
@@ -55,28 +107,75 @@ f = df[
 ].copy()
 
 if f.empty:
-    st.warning("Nenhum registro encontrado para os filtros selecionados.")
+    st.warning(
+        "Nenhum registro encontrado para os filtros selecionados."
+    )
     st.stop()
 
 total_acidentes = int(f["acidentes"].sum())
+
 total_mortes = int(f["mortes"].sum())
-estado_critico = f.groupby("uf")["acidentes"].sum().idxmax()
-tipo_predominante = f.groupby("tipo_acidente")["acidentes"].sum().idxmax()
-horario_perigoso = f.groupby("periodo_dia")["mortes"].sum().idxmax()
+
+estado_critico = (
+    f.groupby("uf")["acidentes"]
+    .sum()
+    .idxmax()
+)
+
+tipo_predominante = (
+    f.groupby("tipo_acidente")["acidentes"]
+    .sum()
+    .idxmax()
+)
+
+horario_perigoso = (
+    f.groupby("periodo_dia")["mortes"]
+    .sum()
+    .idxmax()
+)
+
 taxa_gravidade = f["taxa_gravidade"].mean()
 
 cols = st.columns(6)
 
-cols[0].metric("Total de acidentes", f"{total_acidentes:,}".replace(",", "."))
-cols[1].metric("Total de mortes", f"{total_mortes:,}".replace(",", "."))
-cols[2].metric("Estado mais crítico", estado_critico)
-cols[3].metric("Tipo predominante", tipo_predominante)
-cols[4].metric("Horário mais perigoso", horario_perigoso)
-cols[5].metric("Taxa média de gravidade", f"{taxa_gravidade:.2f}")
+cols[0].metric(
+    "Total de acidentes",
+    f"{total_acidentes:,}".replace(",", ".")
+)
+
+cols[1].metric(
+    "Total de mortes",
+    f"{total_mortes:,}".replace(",", ".")
+)
+
+cols[2].metric(
+    "Estado mais crítico",
+    estado_critico
+)
+
+cols[3].metric(
+    "Tipo predominante",
+    tipo_predominante
+)
+
+cols[4].metric(
+    "Horário mais perigoso",
+    horario_perigoso
+)
+
+cols[5].metric(
+    "Taxa média de gravidade",
+    f"{taxa_gravidade:.2f}"
+)
 
 st.subheader("Evolução temporal")
 
-temporal = f.groupby("ano_mes", as_index=False)[["acidentes", "mortes", "feridos"]].sum()
+temporal = (
+    f.groupby("ano_mes", as_index=False)[
+        ["acidentes", "mortes", "feridos"]
+    ]
+    .sum()
+)
 
 st.plotly_chart(
     px.line(
@@ -98,7 +197,10 @@ with c1:
     estado = (
         f.groupby("uf", as_index=False)["acidentes"]
         .sum()
-        .sort_values("acidentes", ascending=False)
+        .sort_values(
+            "acidentes",
+            ascending=False
+        )
     )
 
     st.plotly_chart(
@@ -115,9 +217,15 @@ with c1:
 
 with c2:
     tipo = (
-        f.groupby("tipo_acidente", as_index=False)["acidentes"]
+        f.groupby(
+            "tipo_acidente",
+            as_index=False
+        )["acidentes"]
         .sum()
-        .sort_values("acidentes", ascending=False)
+        .sort_values(
+            "acidentes",
+            ascending=False
+        )
     )
 
     st.plotly_chart(
@@ -134,7 +242,12 @@ with c2:
 c3, c4 = st.columns(2)
 
 with c3:
-    ordem = ["Madrugada", "Manhã", "Tarde", "Noite"]
+    ordem = [
+        "Madrugada",
+        "Manhã",
+        "Tarde",
+        "Noite"
+    ]
 
     heat = (
         f.pivot_table(
@@ -166,7 +279,11 @@ with c4:
             y="acidentes",
             color="visibilidade",
             size="mortes",
-            hover_data=["uf", "cidade", "tipo_acidente"],
+            hover_data=[
+                "uf",
+                "cidade",
+                "tipo_acidente"
+            ],
             title="Relação chuva x acidentes"
         ),
         use_container_width=True
@@ -175,7 +292,11 @@ with c4:
 st.subheader("Tabela dinâmica")
 
 tabela = f.pivot_table(
-    index=["regiao", "uf", "cidade"],
+    index=[
+        "regiao",
+        "uf",
+        "cidade"
+    ],
     columns="nivel_gravidade",
     values="acidentes",
     aggfunc="sum",
@@ -185,21 +306,35 @@ tabela = f.pivot_table(
 tabela["Total"] = tabela.sum(axis=1)
 
 st.dataframe(
-    tabela.sort_values("Total", ascending=False),
+    tabela.sort_values(
+        "Total",
+        ascending=False
+    ),
     use_container_width=True
 )
 
 st.subheader("Interpretação dos resultados")
 
-regiao_critica = f.groupby("regiao")["acidentes"].sum().idxmax()
-vis_critica = f.groupby("visibilidade")["acidentes"].sum().idxmax()
+regiao_critica = (
+    f.groupby("regiao")["acidentes"]
+    .sum()
+    .idxmax()
+)
+
+vis_critica = (
+    f.groupby("visibilidade")["acidentes"]
+    .sum()
+    .idxmax()
+)
 
 st.write(
-    f"No recorte selecionado, a região com maior concentração de acidentes é **{regiao_critica}**, "
-    f"com destaque para o estado **{estado_critico}**. O tipo mais frequente é **{tipo_predominante}**, "
-    f"enquanto o período com maior impacto em mortes é **{horario_perigoso}**. "
-    f"A condição de visibilidade mais recorrente nos registros filtrados é **{vis_critica}**, "
-    f"indicando que fatores ambientais devem ser observados em políticas de prevenção."
+    f"No recorte selecionado, a região com maior concentração de acidentes é "
+    f"**{regiao_critica}**, com destaque para o estado "
+    f"**{estado_critico}**. O tipo mais frequente é "
+    f"**{tipo_predominante}**, enquanto o período com maior impacto em mortes é "
+    f"**{horario_perigoso}**. A condição de visibilidade mais recorrente "
+    f"nos registros filtrados é **{vis_critica}**, indicando que fatores "
+    f"ambientais devem ser observados em políticas de prevenção."
 )
 
 st.subheader("Conclusão executiva")
