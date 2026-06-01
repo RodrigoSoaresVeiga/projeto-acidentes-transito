@@ -1,5 +1,11 @@
 # Projeto G2 - Tema 27: Análise de Acidentes de Trânsito no Brasil
 
+Desenvolvido por Rodrigo Soares Veiga.
+
+Disciplina: Linguagem de Programação.
+
+Orientador: Alexandre Neves Louzada.
+
 Este projeto desenvolve uma aplicação analítica para investigar padrões de acidentes de trânsito no Brasil entre 2015 e 2024, usando uma base simulada com 4440 registros.
 
 ## Objetivos
