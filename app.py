@@ -17,7 +17,7 @@ def carregar_dados():
     df = pd.read_csv(
         DATA_PATH,
         parse_dates=["data"],
-        encoding="utf-8"
+        encoding="latin-1"
     )
 
     df["taxa_gravidade"] = (
