@@ -1,29 +1,29 @@
-# Projeto G2 - Tema 27: An?lise de Acidentes de Tr?nsito no Brasil
+# Projeto G2 - Tema 27: Análise de Acidentes de Trânsito no Brasil
 
-Este projeto desenvolve uma aplica??o anal?tica para investigar padr?es de acidentes de tr?nsito no Brasil entre 2015 e 2024, usando uma base simulada com 4440 registros.
+Este projeto desenvolve uma aplicação analítica para investigar padrões de acidentes de trânsito no Brasil entre 2015 e 2024, usando uma base simulada com 4440 registros.
 
 ## Objetivos
 
-- Identificar estados e regi?es mais cr?ticas.
-- Analisar a evolu??o temporal dos acidentes.
-- Comparar tipos de acidentes e per?odos do dia.
-- Investigar rela??o entre chuva, visibilidade e gravidade.
-- Disponibilizar um dashboard interativo em Streamlit.
+* Identificar estados e regiões mais críticas.
+* Analisar a evolução temporal dos acidentes.
+* Comparar tipos de acidentes e períodos do dia.
+* Investigar relação entre chuva, visibilidade e gravidade.
+* Disponibilizar um dashboard interativo em Streamlit.
 
 ## Estrutura
 
 ```text
 projeto-acidentes-transito/
-??? app.py
-??? requirements.txt
-??? README.md
-??? index.html
-??? dados/
-?   ??? simulacao_acidentes_transito_brasil.csv
-??? notebooks/
-?   ??? analise_acidentes_transito.ipynb
-??? database/
-??? imagens/
+├── app.py
+├── requirements.txt
+├── README.md
+├── index.html
+├── dados/
+│   └── simulacao_acidentes_transito_brasil.csv
+├── notebooks/
+│   └── analise_acidentes_transito.ipynb
+├── database/
+└── imagens/
 ```
 
 ## Como executar
@@ -35,21 +35,22 @@ streamlit run app.py
 
 ## KPIs presentes no dashboard
 
-- Total de acidentes
-- Total de mortes
-- Estado mais cr?tico
-- Tipo de acidente predominante
-- Hor?rio mais perigoso
-- Taxa m?dia de gravidade
+* Total de acidentes
+* Total de mortes
+* Estado mais crítico
+* Tipo de acidente predominante
+* Horário mais perigoso
+* Taxa média de gravidade
 
-## Publica??o
+## Links relevantes:
 
-Ap?s criar o reposit?rio no GitHub, publique:
+Github, Github Pages, Streamlit e Notebook.
 
-- GitHub: `https://github.com/SEU-USUARIO/projeto-acidentes-transito`
-- GitHub Pages: habilite Pages usando o arquivo `index.html` na branch principal.
-- Streamlit Cloud: conecte o reposit?rio e use `app.py` como arquivo principal.
+* GitHub: `[https://github.com/RodrigoSoaresVeiga/projeto-acidentes-transito/tree/main]`
+* GitHub Pages: `[https://rodrigosoaresveiga.github.io/projeto-acidentes-transito/]`
+* Streamlit: `[https://projeto-acidentes-transito-lxikcamfryu24rsv3yndcu.streamlit.app/]`
+* Notebook: `[https://colab.research.google.com/drive/1blF-ZztMBgEEmcQ0ckcW6v_wMgkQW01i?usp=sharing]`
 
-## Conclus?o
+## Conclusão
 
-A an?lise permite priorizar estados, regi?es, hor?rios e fatores ambientais que concentram maior risco. O dashboard foi desenhado para apoiar decis?es de preven??o, campanhas educativas e planejamento de seguran?a vi?ria.
+A análise permite priorizar estados, regiões, horários e fatores ambientais que concentram maior risco. O dashboard foi desenhado para apoiar decisões de prevenção, campanhas educativas e planejamento de segurança viária.
