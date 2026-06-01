@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-DATA_PATH = Path(_file_).parent / "dados" / "simulacao_acidentes_transito_brasil.csv"
+DATA_PATH = Path(__file__).parent / "dados" / "simulacao_acidentes_transito_brasil.csv"
 
 
 @st.cache_data
